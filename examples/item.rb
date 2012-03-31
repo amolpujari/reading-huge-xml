@@ -1,12 +1,12 @@
 require 'awesome_print'
-require './reading_huge_xml.rb'
+require '../reading_huge_xml.rb'
 
 class Item
 
   def self.do_it
     clear_item
     
-    HugeXML.read 'rss.xml', ['item', 'title', 'link', 'description'] do |element|
+    HugeXML.read '../data/rss.xml', ['item', 'title', 'link', 'description'] do |element|
 
       case element[:name]
       when 'title'

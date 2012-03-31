@@ -33,25 +33,17 @@ module HugeXML
   ###
   #accepts
   #* <tt>:xml_path</tt> - xml file path
-  #* <tt>:elements_lookup</tt> - array of elements to be find out and return/yeild, and this
-  # looks for first elements in the array to starts with, if not found, it wont look for others, so
-  # treat first element of the array as root element name of the records. records which are there
-  # in large xml files. Then it continue looking up for given elements, if found any, yeilds it
+  #* <tt>:elements_lookup</tt> - array of elements to be find out and return/yeild, 
   #
   #  yields <tt>element => { :name => element_name_found, :value => its_value_if_any,
   #  :attributes => { :its_attributes => if_any}, :type =>  Nokogiri::XML::Reader element type }</tt>
   #
-  def self.read xml_path, elements_lookup
+  def self.read xml_path, elements_lookup=nil
     reader = HugeXML::Reader.new
     reader.read xml_path
 
-    record_root_element = elements_lookup.first
-
-    element = reader.try_next record_root_element
-
-    while element
+    while (element=reader.try_next elements_lookup)
       yield element, reader
-      element=reader.try_next elements_lookup
     end
   end
 
@@ -73,6 +65,7 @@ module HugeXML
     end
 
     # looks for any of the given elements, with making no more than specified attempts, if found return it
+    # return first element found if elements=nil
     def try_next elements, attempts=nil
       @trys = attempts
       check_next elements
@@ -105,7 +98,7 @@ module HugeXML
     end
     
     def check_next elements
-      elements = [elements].flatten
+      elements = [elements].flatten if elements
       match = false
 
       while not match
@@ -118,7 +111,7 @@ module HugeXML
 
         next_element
         next unless @type==TYPE_OPENING_ELEMENT
-        match = elements.include? @name
+        match = (elements==nil) || (elements.include? @name)
       end
 
       @trys = nil

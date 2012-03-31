@@ -1,0 +1,13 @@
+
+hey_
+  take_this_xml
+  and look_for_these_elements
+  let_me_know_if_you_find_any_of_them
+
+its like this ....
+
+HugeXML.read xml, elements_lookup do |element|
+  # => element{ :name, :value, :attributes}
+end
+
+

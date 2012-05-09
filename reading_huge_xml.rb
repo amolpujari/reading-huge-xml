@@ -58,7 +58,7 @@ module HugeXML
 
     # opens and reads given xml file
     def read xml_path
-      return @node if @node
+      return if @node
       
       @file = File.open(xml_path)
       reader = Nokogiri::XML::Reader(@file)

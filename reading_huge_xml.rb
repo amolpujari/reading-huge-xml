@@ -58,6 +58,8 @@ module HugeXML
 
     # opens and reads given xml file
     def read xml_path
+      return @node if @node
+      
       @file = File.open(xml_path)
       reader = Nokogiri::XML::Reader(@file)
       @node = reader
@@ -75,14 +77,12 @@ module HugeXML
     def try_next_with_value elements, attempts=nil
       @trys = attempts
       check_next_with_value elements
-      @trys = nil
     end
     
     # looks for any of the given elements having any attributes, with making no more than specified attempts, if found return it
     def try_next_with_attributes elements, attempts=nil
       @trys = attempts
       check_next_with_attributes elements
-      @trys = nil
     end
     
     private

@@ -10,4 +10,27 @@ HugeXML.read xml, elements_lookup do |element|
   # => element{ :name, :value, :attributes}
 end
 
+OR simply
+
+HugeXML.read xml do |element|
+# this will catch all opening elements
+
+still you can control this as
+
+HugeXML.read xml, elements_lookup do |element, reader|
+
+Here reader is actual (Nokogir)pointer/cursor which keeps on moving as we keep
+on reading file stream. and has the following methods for us
+
+element = reader.try_next elements
+element = reader.try_next_with_value elements
+element = reader.try_next_with_attributes elements
+
+Note* use reader on trial basis :)
+
+
+
+
+
+
 

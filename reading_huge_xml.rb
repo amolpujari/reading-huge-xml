@@ -40,7 +40,7 @@ module HugeXML
   #
   def self.read xml_path, elements_lookup=nil
     reader = HugeXML::Reader.new
-    reader.read xml_path
+    reader = reader.read xml_path
 
     while (element=reader.try_next elements_lookup)
       yield element, reader

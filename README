@@ -19,7 +19,7 @@ still you can control this as
 
 HugeXML.read xml, elements_lookup do |element, reader|
 
-Here reader is actual (Nokogir)pointer/cursor which keeps on moving as we keep
+Here reader represents (Nokogir)pointer/cursor (but not actually itself is) which keeps on moving as we keep
 on reading file stream. and has the following methods for us
 
 element = reader.try_next elements

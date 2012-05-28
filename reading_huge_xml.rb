@@ -40,7 +40,7 @@ module HugeXML
   #
   def self.read xml_path, elements_lookup=nil
     reader = HugeXML::Reader.new
-    reader = reader.read xml_path
+    reader.read xml_path
 
     while (element=reader.try_next elements_lookup)
       yield element, reader
@@ -89,12 +89,14 @@ module HugeXML
 
     def check_next_with_value elements
       @value = nil
-      check_next elements while not @value
+      element = check_next elements while not @value and @trys
+      element
     end
     
     def check_next_with_attributes elements
       @attributes = nil
-      check_next elements while not @attributes
+      element = check_next elements while not @attributes and @trys
+      element
     end
     
     def check_next elements
@@ -106,7 +108,10 @@ module HugeXML
         
         if @trys
           @trys -=1
-          return if @trys==0
+          if @trys<=0
+            @trys = nil
+            return
+          end
         end
 
         next_element

@@ -15,7 +15,7 @@ OR simply
 HugeXML.read xml do |element|
 # this will catch all opening elements
 
-still you can control this as
+You can have some more control as
 
 HugeXML.read xml, elements_lookup do |element, reader|
 

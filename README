@@ -20,6 +20,11 @@ element = reader.try_next_with_attributes elements
 
 Note* use reader on trial basis :)
 
+I just got one more similar example using ox
+https://gist.github.com/amolpujari/5966431
+
+
+
 
 
 
